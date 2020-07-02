@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Умная розетка</string>
+    <string name="on">Включить</string>
+    <string name="back">Назад</string>
+    <string name="add">Добавить</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="add_socket">Добавить розетку</string>
+    <string name="delete_socket">Удалить розетку?</string>
+    <string name="clear">Очистить</string>
+    <string name="Cancel">Отмена</string>
+    <string name="Password">Пароль</string>
+    <string name="PassEnter">Ввод пароля</string>
+    <string name="PhoneNumber">Номер телефона</string>
+    <string name="socket_name">Имя розетки</string>
+    <string name="main_menu">Главное меню</string>
+    <string name="sockets_list">Список розеток</string>
+    <string name="socket_settings">Настройки розетки</string>
+    <string name="family_members_list">Список членов семьи</string>
+    <string name="off">Выключить</string>
+    <string name="C_On">"#01#</string>
+    <string name="C_Off">"#02#</string>
+    <string name="C_ChangePassword">"#04#</string>
+    <string name="C_RequestOutputStatus">#000#</string>
+    <string-array name="phones">
+        <item>+88005553535</item>
+        <item>79834620802</item>
+        <item>+78000000000</item>
+        <item>76000000000</item>
+    </string-array>
+    <string-array name="names">
+        <item>Вася</item>
+        <item>Мурзик</item>
+        <item>Собака</item>
+        <item>Панда</item>
+    </string-array>
+    <string-array name="settings_list">
+        <item>Отправка смс при изменении электропитания</item>
+        <item>Функция выхода в заданное время</item>
+        <item>Звуковой сигнал</item>
+        <item>Диапазон управления температурой</item>
+        <item>Функция управления температурой</item>
+        <item>Диапазон сигнализации о температуре</item>
+        <item>Сигнализация о температуре</item>
+        <item>Калибровка времени</item>
+    </string-array>
+    <string-array name="settings_сommands_list">
+        <item>Смс при изменении электропитания</item>
+        <item>Выход в заданное время</item>
+        <item>Звуковой сигнал</item>
+        <item>Диапазон управления температурой</item>
+        <item>Функция управления температурой</item>
+        <item>Диапазон сигнализации о температуре</item>
+        <item>Сигнализация о температуре</item>
+        <item>Калибровка времени</item>
+    </string-array>
+    <string-array name="settings_types_list">
+        <item>boolean</item>
+        <item>boolean</item>
+        <item>boolean</item>
+        <item>data</item>
+        <item>boolean</item>
+        <item>data</item>
+        <item>boolean</item>
+        <item>data</item>
+    </string-array>
+</resources>
