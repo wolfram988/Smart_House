@@ -81,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
                         SC.sendCommand(getString(R.string.C_Off), adminFlag);
                         break;
                     case R.id.buttonSettings: //переход в активность с настройками розетки
-                        intent.putExtra("phone_number", numberText);
                         intent = new Intent(MainActivity.this, SocketSettingsActivity.class);
+                        intent.putExtra("phone_number", numberText);
                         startActivity(intent);
                         break;
                     case R.id.buttonFamilyMembers: //переход в активность с членами семьи
-                        intent.putExtra("phone_number", numberText);
                         intent = new Intent(MainActivity.this, FamilyMembersActivity.class);
+                        intent.putExtra("phone_number", numberText);
                         startActivity(intent);
                         break;
                 }
