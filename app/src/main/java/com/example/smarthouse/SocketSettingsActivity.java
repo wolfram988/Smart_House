@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class SocketSettingsActivity extends AppCompatActivity {
     Intent intent; //намерение
     ListView listView; //список
+    String phone,password; //телефон и пароль
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,7 @@ public class SocketSettingsActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.settings_list));
         listView.setAdapter(adapter);
+        intent = getIntent();
     }
     public void onClick(View v){
         switch (v.getId()){

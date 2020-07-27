@@ -23,11 +23,13 @@ public class MainActivity extends AppCompatActivity {
     Intent intent;//намерение
     String numberText; //номер телефона(строка)
     String password; //пароль
+    String name;
     SMSCommand SC; // класс для работы с командами и смс
     ArrayAdapter adapter; //адаптер выпадающего списка
     ArrayList<String> phones; //телефоны
     ArrayList<String> passwords; //пароли
     ArrayList<String> adminFlags;//флаги на ввод пароля
+    ArrayList<String> names;
     int adminFlag; //флаг на ввод пароля
     int requestCode = 0;
     boolean isCorrect;
@@ -40,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         dbHelper = new DBHelper(this);
         necessaryDBTools = new NecessaryDBTools(dbHelper,TABLE_NAME);
-        adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,necessaryDBTools.getFromSQLite("name"));
         phones = necessaryDBTools.getFromSQLite("phone");
         passwords = necessaryDBTools.getFromSQLite("password");
         adminFlags = necessaryDBTools.getFromSQLite("adminflag");
+        names = necessaryDBTools.getFromSQLite("name");
+        adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,names);
         spinner.setAdapter(adapter);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         while ((ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED)){
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             numberText = phones.get(spinner.getSelectedItemPosition());
             password = passwords.get(spinner.getSelectedItemPosition());
             adminFlag = Integer.parseInt(adminFlags.get(spinner.getSelectedItemPosition()));
+            name = names.get(spinner.getSelectedItemPosition());
         }
         catch (Exception ignored){}
         SC = new SMSCommand(numberText,password);
@@ -83,11 +87,16 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.buttonSettings: //переход в активность с настройками розетки
                         intent = new Intent(MainActivity.this, SocketSettingsActivity.class);
                         intent.putExtra("phone_number", numberText);
+                        intent.putExtra("password",password);
+                        intent.putExtra("admin_flag",adminFlag);
                         startActivity(intent);
                         break;
                     case R.id.buttonFamilyMembers: //переход в активность с членами семьи
                         intent = new Intent(MainActivity.this, FamilyMembersActivity.class);
                         intent.putExtra("phone_number", numberText);
+                        intent.putExtra("password",password);
+                        intent.putExtra("admin_flag",adminFlag);
+                        intent.putExtra("socketname",name);
                         startActivity(intent);
                         break;
                 }

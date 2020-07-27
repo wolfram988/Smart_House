@@ -28,7 +28,7 @@ class DBHelper extends SQLiteOpenHelper {
                 + "id integer primary key autoincrement,"
                 + "name text,"
                 + "phone text,"
-                + "socket text"+ ");");
+                + "socket text" + ");");
     }
 
     @Override

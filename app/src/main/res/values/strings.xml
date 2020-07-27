@@ -6,6 +6,7 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="add_socket">Добавить розетку</string>
+    <string name="add_family_member">Добавить члена семьи</string>
     <string name="delete_socket">Удалить розетку?</string>
     <string name="clear">Очистить</string>
     <string name="Cancel">Отмена</string>
@@ -13,6 +14,7 @@
     <string name="PassEnter">Ввод пароля</string>
     <string name="PhoneNumber">Номер телефона</string>
     <string name="socket_name">Имя розетки</string>
+    <string name="name">Имя</string>
     <string name="main_menu">Главное меню</string>
     <string name="sockets_list">Список розеток</string>
     <string name="socket_settings">Настройки розетки</string>

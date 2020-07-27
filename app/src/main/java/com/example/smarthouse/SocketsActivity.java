@@ -17,6 +17,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -39,9 +40,11 @@ public class SocketsActivity extends AppCompatActivity {
     final String TABLE_NAME = "numbers";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numbers);
         setTitle(R.string.sockets_list);//заголовок окна
+
         dbHelper = new DBHelper(this);
         smsCommand = new SMSCommand();
         necessaryDBTools = new NecessaryDBTools(dbHelper,TABLE_NAME);
@@ -95,6 +98,7 @@ public class SocketsActivity extends AppCompatActivity {
                 break;
             case R.id.buttonClear:
                 necessaryDBTools.clearSQLiteTable(TABLE_NAME);
+                necessaryDBTools.clearSQLiteTable("family");
                 updateAdapter();
                 break;
             case R.id.buttonSettings:
@@ -107,7 +111,7 @@ public class SocketsActivity extends AppCompatActivity {
                 //добавление розетки без пароля
                 if(adminFlag == 0) {
                     if (!d_editName.getText().toString().equals("")
-                            && !d_editPhone.getText().toString().equals("")) { //проверка на заполненность полей
+                            && !d_editPhone.getText().toString().equals("") && !names.contains(d_editName.getText().toString())) { //проверка на заполненность полей
                         if(smsCommand.isCorrect(d_editPhone.getText().toString())){ //проврка валидности номера телефона
                             necessaryDBTools.putSocketToSQLite(
                                     d_editName.getText().toString(),
@@ -119,9 +123,13 @@ public class SocketsActivity extends AppCompatActivity {
                             Toast.makeText(this,"Неверный номер",Toast.LENGTH_SHORT).show();
                         }
                     }
-                    else{
+                    else if(d_editName.getText().toString().equals("") || d_editPhone.getText().toString().equals("")){
                         Log.d("NumbersActivity", "onDialogClick: error");
                         Toast.makeText(this,"Не все поля заполнены",Toast.LENGTH_SHORT).show();
+                    }
+                    else if(names.contains(d_editName.getText().toString())){
+                        Log.d("NumbersActivity", "onDialogClick: error");
+                        Toast.makeText(this,"Розетка с таким именем уже существует",Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -159,6 +167,7 @@ public class SocketsActivity extends AppCompatActivity {
         switch (v.getId()){
             case R.id.buttonDYes:
               necessaryDBTools.deleteFromSQLite(names.get(deletePosition));
+              necessaryDBTools.clearFamilyMembers("family",names.get(deletePosition));
               updateAdapter();
               dialogDelete.cancel();
                 break;
