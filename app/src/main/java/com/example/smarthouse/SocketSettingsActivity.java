@@ -1,9 +1,11 @@
 package com.example.smarthouse;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -19,6 +21,9 @@ public class SocketSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket_settings);
         setTitle(R.string.socket_settings);//заголовок окна
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         listView = findViewById(R.id.listview);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
@@ -26,14 +31,15 @@ public class SocketSettingsActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         intent = getIntent();
     }
-    public void onClick(View v){
-        switch (v.getId()){
-
-            case R.id.buttonBack: //переход на главный экран
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
                 intent = new Intent(SocketSettingsActivity.this,MainActivity.class);
                 startActivity(intent);
-                    break;
-
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
