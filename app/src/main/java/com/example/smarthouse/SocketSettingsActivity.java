@@ -31,12 +31,12 @@ public class SocketSettingsActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         intent = getIntent();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                intent = new Intent(SocketSettingsActivity.this,MainActivity.class);
-                startActivity(intent);
+                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

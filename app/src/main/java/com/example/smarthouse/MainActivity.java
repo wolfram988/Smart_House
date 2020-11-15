@@ -56,6 +56,19 @@ public class MainActivity extends AppCompatActivity {
         } //проверка разрешений
 
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        phones = necessaryDBTools.getFromSQLite("phone");
+        passwords = necessaryDBTools.getFromSQLite("password");
+        adminFlags = necessaryDBTools.getFromSQLite("adminflag");
+        names = necessaryDBTools.getFromSQLite("name");
+        adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,names);
+        spinner.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    }
+
     public void onClick(View v){
         isCorrect = true;
         try {

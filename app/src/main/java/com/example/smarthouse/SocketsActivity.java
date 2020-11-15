@@ -1,27 +1,30 @@
 package com.example.smarthouse;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
 public class SocketsActivity extends AppCompatActivity {
+
+    final String TABLE_NAME = "numbers";
     DBHelper dbHelper; //помощник для работы с SQLite
     NecessaryDBTools necessaryDBTools; //доп класс для работы с SQLite
     ContentValues contentValues; //помощник для работы с данными для SQLite
@@ -31,43 +34,54 @@ public class SocketsActivity extends AppCompatActivity {
     ArrayList<String> names; //имена
     ArrayList<String> phones; //имена
     Resources res; //ресурсы андроид
-    Intent intent; //намерение
-    Dialog dialogAdd,dialogDelete; //диалоговые окна
+    Dialog  dialogAdd,
+            dialogDelete,
+            dialogEdit; //диалоговые окна
     Switch d_adminSwitch;//переключатель ввода пароля
     int adminFlag = 0; //переменная ввода пароля
-    int deletePosition;
+    int position;
+    String selectedPhone,selectedSocket;
     EditText d_editPassword,d_editName, d_editPhone;//поля ввода пароля,имени,телефона
-    final String TABLE_NAME = "numbers";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //действия при запуске приложения
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numbers);
         setTitle(R.string.sockets_list);//заголовок окна
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         dbHelper = new DBHelper(this);
         smsCommand = new SMSCommand();
         necessaryDBTools = new NecessaryDBTools(dbHelper,TABLE_NAME);
         res = getResources();
+
         listView = findViewById(R.id.listview);
-        dialogDelete = new Dialog(this);
-        dialogDelete.setContentView(R.layout.dialog_delete_socket);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                           int position, long id) {
-                deletePosition = position;
-                TextView textView = dialogDelete.findViewById(R.id.title);
-                textView.setTextSize(18);
-                dialogDelete.show();
+                                           int i, long l) {
+                selectedSocket = names.get(i);
+                selectedPhone = phones.get(i);
+                position = i;
+                showPopupMenu(view);
 
                 return true;
             }
         });
         updateAdapter();
-    } //действия при запуске приложения
+
+    }
+
+
     public void onClick(View v){
+
         contentValues = new ContentValues();
         dialogAdd = new Dialog(this);
+
         switch (v.getId()) {
 
             case R.id.buttonAdd:
@@ -92,10 +106,6 @@ public class SocketsActivity extends AppCompatActivity {
                 });
                 dialogAdd.show();
                 break;
-            case R.id.buttonBack:
-                intent = new Intent(SocketsActivity.this,MainActivity.class);
-                startActivity(intent);
-                break;
             case R.id.buttonClear:
                 necessaryDBTools.clearSQLiteTable(TABLE_NAME);
                 necessaryDBTools.clearSQLiteTable("family");
@@ -103,11 +113,11 @@ public class SocketsActivity extends AppCompatActivity {
                 break;
             case R.id.buttonSettings:
                 break;
-        } //1344
+        }
     }//обработчик кнопок
     public void onDialogAddClick(View v) {
         switch (v.getId()){
-            case R.id.buttonDAdd: //кнопка добавить
+            case R.id.buttonDApply: //кнопка добавить
                 //добавление розетки без пароля
                 if(adminFlag == 0) {
                     if (!d_editName.getText().toString().equals("")
@@ -165,9 +175,9 @@ public class SocketsActivity extends AppCompatActivity {
     } //обработчик кнопок в диалоговом окне
     public void onDialogDeleteClick(View v){
         switch (v.getId()){
-            case R.id.buttonDYes:
-              necessaryDBTools.deleteFromSQLite(names.get(deletePosition));
-              necessaryDBTools.clearFamilyMembers("family",names.get(deletePosition));
+            case R.id.buttonDApply:
+              necessaryDBTools.deleteFromSQLite(names.get(position));
+              necessaryDBTools.clearFamilyMembers("family",names.get(position));
               updateAdapter();
               dialogDelete.cancel();
                 break;
@@ -176,6 +186,23 @@ public class SocketsActivity extends AppCompatActivity {
                 break;
         }
     } //обработчиик кнопок в диалоговом окне удаления номера
+    public void onDialogEditClick(View v){
+      switch (v.getId()){
+          case R.id.buttonDApply:
+              d_editName = dialogEdit.findViewById(R.id.editName);
+              if (!d_editName.getText().toString().equals("") && !names.contains(d_editName.getText().toString())){
+              necessaryDBTools.editSocketName(names.get(position),d_editName.getText().toString());
+              updateAdapter();
+              dialogEdit.cancel();
+          }
+              break;
+          case R.id.buttonDCancel:
+              dialogEdit.cancel();
+              break;
+      }
+    }//обработчик кнопок в окне редактирования
+
+
     public void updateAdapter(){
         names = new ArrayList<>();
         names = necessaryDBTools.getFromSQLite("name");
@@ -188,4 +215,55 @@ public class SocketsActivity extends AppCompatActivity {
                 new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(adapter);
     } //обновление данных в списке и устанока адаптера списка
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    private void showPopupMenu(View v){
+        final PopupMenu popupMenu = new PopupMenu(this, v);
+        popupMenu.inflate(R.menu.popupmenu);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch(menuItem.getItemId()){
+                    case R.id.menu_edit:
+                        dialogEdit = new Dialog(SocketsActivity.this);
+                        dialogEdit.setContentView(R.layout.dialog_edit_socket);
+                        EditText editNewPhone = dialogEdit.findViewById(R.id.editPhone);
+                        editNewPhone.setEnabled(false);
+                        dialogEdit.show();
+                        popupMenu.dismiss();
+                        break;
+
+                    case R.id.menu_delete:
+                        dialogDelete = new Dialog(SocketsActivity.this);
+                        dialogDelete.setContentView(R.layout.dialog_delete_socket);
+                        TextView textView = dialogDelete.findViewById(R.id.title);
+                        textView.setTextSize(18);
+                        dialogDelete.show();
+                        popupMenu.dismiss();
+                        break;
+
+                }
+                return false;
+            }
+        });
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+            }
+        });
+        popupMenu.show();
+
+    }
 }

@@ -7,7 +7,7 @@
     tools:context=".SocketsActivity">
 
     <Button
-        android:id="@+id/buttonDAdd"
+        android:id="@+id/buttonDApply"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -15,6 +15,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="onDialogAddClick"
+        android:background="@drawable/rounded_button"
         android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonDCancel"
@@ -94,10 +95,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="onDialogAddClick"
+        android:background="@drawable/rounded_button"
         android:text="@string/Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonDAdd"
+        app:layout_constraintStart_toEndOf="@+id/buttonDApply"
         app:layout_constraintTop_toBottomOf="@+id/editPassword"
         app:layout_constraintVertical_bias="0.0" />
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 class NecessaryDBTools {
-    private DBHelper dbHelper;
+    private DBHelper dbHelper; //класс помощник для sql
     private SQLiteDatabase db;
     private String TABLE_NAME;
     NecessaryDBTools(DBHelper dbHelper,String TABLE_NAME){
@@ -102,6 +102,21 @@ class NecessaryDBTools {
     void clearFamilyMembers(String TABLE_NAME,String socket){
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         database.delete(TABLE_NAME,"socket ='" + socket + "'",null);
+    }
+    void edit(String valType, String oldVal,String newVal){
+         ContentValues contentValues = new ContentValues();
+         SQLiteDatabase database = dbHelper.getWritableDatabase();
+         contentValues.put("name",newVal);
+         database.update(TABLE_NAME,contentValues,valType + " ='" + oldVal + "'",null);
+    }
+    void editSocketName(String oldSocketName, String newSocketName){
+        ContentValues socketCV = new ContentValues();
+        ContentValues memberCV = new ContentValues();
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        socketCV.put("name",newSocketName);
+        memberCV.put("socket",newSocketName);
+        database.update("numbers",socketCV,"name"+ " ='"+oldSocketName+"'",null);
+        database.update("family",memberCV,"socket"+ "='" + oldSocketName +"'",null);
     }
 
 }

@@ -66,4 +66,6 @@
         <item>boolean</item>
         <item>data</item>
     </string-array>
+    <string name="edit">Редактировать</string>
+    <string name="apply">Применить</string>
 </resources>

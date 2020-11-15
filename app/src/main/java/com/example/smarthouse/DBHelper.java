@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 class DBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "myDB";
-    public static final String TABLE_NAME = "numbers";
-    public static final String TABLE_NAME_2 = "family";
+    public static final String NUMBERS_TABLE = "numbers";
+    public static final String FAMILY_TABLE = "family";
     public DBHelper(Context context) {
         // конструктор суперкласса
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -18,17 +18,18 @@ class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // создаем таблицу с полями
-        db.execSQL("create table " + TABLE_NAME + "("
+        db.execSQL("create table " + NUMBERS_TABLE + "("
                 + "id integer primary key autoincrement,"
                 + "name text,"
                 + "phone text,"
                 + "password text,"
-                + "adminflag boolean" + ");");
-        db.execSQL("create table " + TABLE_NAME_2 + "("
+                + "adminflag boolean" + ");");//создание или инициализация таблицы с розетками
+
+        db.execSQL("create table " + FAMILY_TABLE + "("
                 + "id integer primary key autoincrement,"
                 + "name text,"
                 + "phone text,"
-                + "socket text" + ");");
+                + "socket text" + ");");//создание или инициализация таблицы с членами семьи
     }
 
     @Override
