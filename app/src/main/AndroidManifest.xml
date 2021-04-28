@@ -11,8 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
         <activity android:name=".FamilyMembersActivity" />
-        <activity android:name=".SocketSettingsActivity" />
         <activity android:name=".SocketsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

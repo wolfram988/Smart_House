@@ -36,7 +36,7 @@ public class SocketsActivity extends AppCompatActivity {
     Resources res; //ресурсы андроид
     Dialog  dialogAdd,
             dialogDelete,
-            dialogEdit; //диалоговые окна
+            dialogEdit,dialogConfirm; //диалоговые окна
     Switch d_adminSwitch;//переключатель ввода пароля
     int adminFlag = 0; //переменная ввода пароля
     int position;
@@ -81,6 +81,7 @@ public class SocketsActivity extends AppCompatActivity {
 
         contentValues = new ContentValues();
         dialogAdd = new Dialog(this);
+        dialogConfirm = new Dialog(this);
 
         switch (v.getId()) {
 
@@ -107,11 +108,8 @@ public class SocketsActivity extends AppCompatActivity {
                 dialogAdd.show();
                 break;
             case R.id.buttonClear:
-                necessaryDBTools.clearSQLiteTable(TABLE_NAME);
-                necessaryDBTools.clearSQLiteTable("family");
-                updateAdapter();
-                break;
-            case R.id.buttonSettings:
+                dialogConfirm.setContentView(R.layout.dialog_confirm);
+                dialogConfirm.show();
                 break;
         }
     }//обработчик кнопок
@@ -265,5 +263,16 @@ public class SocketsActivity extends AppCompatActivity {
         });
         popupMenu.show();
 
+    }
+    public void onConfDClick(View view){
+        switch (view.getId()){
+            case R.id.button_yes:
+                necessaryDBTools.clearSQLiteTable(TABLE_NAME);
+                necessaryDBTools.clearSQLiteTable("family");
+                updateAdapter();
+                dialogConfirm.cancel();
+            case R.id.button_no:
+                dialogConfirm.cancel();
+        }
     }
 }

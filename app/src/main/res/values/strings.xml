@@ -1,4 +1,6 @@
 <resources>
+
+    <!--Надписи-->
     <string name="app_name">Умная розетка</string>
     <string name="on">Включить</string>
     <string name="back">Назад</string>
@@ -8,6 +10,7 @@
     <string name="add_socket">Добавить розетку</string>
     <string name="add_family_member">Добавить члена семьи</string>
     <string name="delete_socket">Удалить розетку?</string>
+    <string name="get_status">Получить статус</string>
     <string name="clear">Очистить</string>
     <string name="Cancel">Отмена</string>
     <string name="Password">Пароль</string>
@@ -18,26 +21,50 @@
     <string name="main_menu">Главное меню</string>
     <string name="sockets_list">Список розеток</string>
     <string name="socket_settings">Настройки розетки</string>
+    <string name="settings">Настройки</string>
+    <string name="app_settings">Настройки приложения</string>
     <string name="family_members_list">Список членов семьи</string>
     <string name="off">Выключить</string>
+    <string name="edit">Редактировать</string>
+    <string name="apply">Применить</string>
+    <string name="confirm_title">Показывать окна подтверждения</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="change_pass">Изменение пароля</string>
+    <string name="sound_signal">Звуковой сигнал</string>
+    <string name="are_you_sure">Вы точно уверены?</string>
+
+    <!--Команды-->
     <string name="C_On">"#01#</string>
     <string name="C_Off">"#02#</string>
     <string name="C_ChangePassword">"#04#</string>
     <string name="C_RequestOutputStatus">#000#</string>
-    <string-array name="phones">
-        <item>+88005553535</item>
-        <item>79834620802</item>
-        <item>+78000000000</item>
-        <item>76000000000</item>
-    </string-array>
-    <string-array name="names">
-        <item>Вася</item>
-        <item>Мурзик</item>
-        <item>Собака</item>
-        <item>Панда</item>
-    </string-array>
+    <string name="C_SendSMSAboutOutput_On">#11#1#</string>
+    <string name="C_SendSMSAboutOutput_Off">#11#0#</string>
+    <string name="C_SwitchOutputByCall_On">#18#1#</string>
+    <string name="C_SwitchOutputByCall_Off">#18#0#</string>
+    <string name="C_AddFamilyMember">#06#</string>
+    <string name="C_DeleteFamilyMember">#113#</string>
+    <string name="C_SendSMSAboutInput_On">#12#1#</string>
+    <string name="C_SendSMSAboutInput_Off">#12#0#</string>
+    <string name="C_EnableSoundSignal_On">#19#1#</string>
+    <string name="C_EnableSoundSignal_Off">#19#0#</string>
+    <string name="C_EnableOutputByTimer_On">#128#1#</string>
+    <string name="C_EnableOutputByTimer_Off">#128#0#</string>
+    <string name="C_DeleteTimer">#127#</string>
+    <string name="C_GetTimerParams">#128#</string>
+    <string name="C_SetTempRange">#159#</string>
+    <string name="C_EnableControlByTemp_On">#159#1#</string>
+    <string name="C_EnableControlByTemp_Off">#159#0#</string>
+    <string name="C_GetTempControlParams">#159#</string>
+    <string name="C_SetSignalizationRange">#170#</string>
+    <string name="C_EnableTempSingalization_On">#170#1#</string>
+    <string name="C_EnableTempSingalization_Off">#170#0#</string>
+    <string name="С_GetTempSignalizationParams">#170#</string>
+    <string name="C_GetSocketState">#07#</string>
+    <string name="C_RestoreDefaultSettings">#08#</string>
+
     <string-array name="settings_list">
-        <item>Отправка смс при изменении электропитания</item>
+        <item>Изменение пароля</item>
         <item>Функция выхода в заданное время</item>
         <item>Звуковой сигнал</item>
         <item>Диапазон управления температурой</item>
@@ -46,26 +73,9 @@
         <item>Сигнализация о температуре</item>
         <item>Калибровка времени</item>
     </string-array>
-    <string-array name="settings_сommands_list">
-        <item>Смс при изменении электропитания</item>
-        <item>Выход в заданное время</item>
-        <item>Звуковой сигнал</item>
-        <item>Диапазон управления температурой</item>
-        <item>Функция управления температурой</item>
-        <item>Диапазон сигнализации о температуре</item>
-        <item>Сигнализация о температуре</item>
-        <item>Калибровка времени</item>
-    </string-array>
-    <string-array name="settings_types_list">
-        <item>boolean</item>
-        <item>boolean</item>
-        <item>boolean</item>
-        <item>data</item>
-        <item>boolean</item>
-        <item>data</item>
-        <item>boolean</item>
-        <item>data</item>
-    </string-array>
-    <string name="edit">Редактировать</string>
-    <string name="apply">Применить</string>
+
+
+
+
+
 </resources>

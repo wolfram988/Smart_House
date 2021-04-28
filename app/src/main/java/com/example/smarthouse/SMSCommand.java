@@ -1,6 +1,7 @@
 package com.example.smarthouse;
 
 //import android.telephony.SmsManager;
+import android.telephony.SmsManager;
 import android.util.Log;
 
 public class SMSCommand {
@@ -14,14 +15,14 @@ public class SMSCommand {
     SMSCommand(){} //конструктор класса для работы с функциями
 
     public void sendCommand(String command,int admin){
-        TAG = "LOG_TAG";
+        TAG = "COMMAND";
         if (admin == 0){
             Log.d(TAG, "sendCommand: "+ command+" number: "+number);
-            //SmsManager.getDefault().sendTextMessage(number, null, command, null, null);
+            SmsManager.getDefault().sendTextMessage(number, null, command, null, null);
         }
         else if (admin == 1){
             Log.d(TAG, "sendCommand: "+ command + password+ "#" + " number: " + number);
-        //SmsManager.getDefault().sendTextMessage(number, null, command+password+"#", null, null);
+            SmsManager.getDefault().sendTextMessage(number, null, command+password+"#", null, null);
             }
     }
     public boolean isCorrect() {

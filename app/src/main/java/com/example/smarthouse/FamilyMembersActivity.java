@@ -32,7 +32,7 @@ public class FamilyMembersActivity extends AppCompatActivity {
     String phone,password, socketname;
     SMSCommand smsCommand;
     int adminFlag;
-    Dialog dialogAdd,dialogDelete,dialogEdit;
+    Dialog dialogAdd,dialogDelete,dialogEdit,dialogConfirm;
     String selectedFamilyMember, selectedPhone;
     EditText editNewName,editNewPhone;
 
@@ -82,8 +82,8 @@ public class FamilyMembersActivity extends AppCompatActivity {
                 dialogAdd.show();
                 break;
             case R.id.buttonClear:
-                necessaryDBTools.clearFamilyMembers(TABLE_NAME,socketname);
-                updateAdapter();
+                dialogConfirm = new Dialog(this);
+                dialogConfirm.setContentView(R.layout.dialog_confirm);
                 break;
         }
     }//обработка нажатий
@@ -207,6 +207,16 @@ public class FamilyMembersActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+    public void onConfDClick(View view){
+        switch (view.getId()){
+            case R.id.button_yes:
+                necessaryDBTools.clearFamilyMembers(TABLE_NAME,socketname);
+                updateAdapter();
+                dialogConfirm.cancel();
+            case R.id.button_no:
+                dialogConfirm.cancel();
         }
     }
 }
