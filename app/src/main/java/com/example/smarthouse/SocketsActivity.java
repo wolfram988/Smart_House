@@ -238,7 +238,9 @@ public class SocketsActivity extends AppCompatActivity {
                         dialogEdit = new Dialog(SocketsActivity.this);
                         dialogEdit.setContentView(R.layout.dialog_edit_socket);
                         EditText editNewPhone = dialogEdit.findViewById(R.id.editPhone);
+                        EditText editNewName = dialogEdit.findViewById(R.id.editName);
                         editNewPhone.setEnabled(false);
+                        editNewName.setText(selectedSocket);
                         dialogEdit.show();
                         popupMenu.dismiss();
                         break;
